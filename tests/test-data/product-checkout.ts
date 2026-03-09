@@ -22,7 +22,14 @@ const userCandy = {
     cardSvc: '123'
 };
 
+interface addedProduct {
+    name: string | null;
+    price: number;
+    quantity: string;
+}
+
 export {
     userCandy,
-    UserInfo
+    UserInfo,
+    addedProduct
 };
