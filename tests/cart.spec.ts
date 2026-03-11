@@ -17,9 +17,6 @@ test('add item to cart using POM', async ({ page }) => {
 
     topBanner.goToCart(page);
 
-    // const cartOrderSummary = page.getByText('Order Summary');
-    // await expect(cartOrderSummary).toBeVisible();
-
     cart.assertProduct(page, addFirstProduct.name!);
 
     const subtotal = await cart.getSubtotal(page);
