@@ -12,15 +12,23 @@ test.beforeEach(async ({ page }) => {
 
 // clean up other tests using new page classes
 
-test('add item to cart using POM', async ({ page }) => {
-    const addFirstProduct = await addProducttoCart(page, 0);
+test('add item to cart using POM', async ({ page, productsPage, cartPage }) => {
+    
+    let addFirstProduct: addedProduct;
 
-    topBanner.goToCart(page);
+    await test.step('first product on page added', async () => {
+        addFirstProduct = await productsPage.addProductsToCart(0, 1);
+    });
 
-    cart.assertProduct(page, addFirstProduct.name!);
+    await test.step('go to cart and assert product is visible', async () => {
+        topBanner.goToCart(page);
+        cartPage.assertProduct(page, addFirstProduct.name!);
+    });
 
-    const subtotal = await cart.getSubtotal(page);
-    expect(subtotal).toBe(addFirstProduct.price);
+    await test.step('assert subtotal is correct', async () => {
+        const subtotal = await cartPage.getSubtotal(page);
+        expect(subtotal).toBe(addFirstProduct.price);
+    });
 
 });
 
