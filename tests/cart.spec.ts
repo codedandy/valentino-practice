@@ -5,9 +5,6 @@ test.beforeEach(async ({ page }) => {
     await page.goto('/products');
 });
 
-
-// clean up other tests using new page classes
-
 test('add item to cart using POM', async ({ page, productsPage, cartPage, topBannerPage }) => {
 
     let addFirstProduct: addedProduct;

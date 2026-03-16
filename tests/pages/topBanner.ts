@@ -9,6 +9,7 @@ export class TopBannerPage {
     readonly loginLink: Locator;
     readonly signUpLink: Locator;
     readonly cartButton: Locator;
+    readonly userLink: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -19,6 +20,7 @@ export class TopBannerPage {
         this.loginLink = page.getByRole('link', { name: 'Login' });
         this.signUpLink = page.getByRole('link', { name: 'Sign Up' });
         this.cartButton = page.locator('[data-test-id="header-cart-button"]').getByRole('button');
+        this.userLink = page.locator('[data-test-id="header-cart-button"]').locator('..').locator('div').first();
     }
 
     async clickLogo() {
