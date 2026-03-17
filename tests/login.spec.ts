@@ -7,27 +7,32 @@ test.beforeEach(async ({ page }) => {
 
 test('login with valid user - run through user menu', async ({ page, topBannerPage, loginPage }) => {
 
-    await topBannerPage.clickLogin();
+    await test.step('Login with from top banner', async () => {
+        await topBannerPage.clickLogin();
+        await loginPage.login(loginData.valid_user, loginData.valid_password);
 
-    // await loginPage.login('dandy@codedandy.com', 'Dandy12345');
-    await loginPage.login(loginData.valid_user, loginData.valid_password);
+        await page.waitForLoadState('networkidle');
 
-    await page.waitForLoadState('networkidle');
-    const kotter = page.getByText('Login Successful');
+        await expect(topBannerPage.userWelcomeMessage).toBeVisible();
+    });
 
-    await expect(kotter).toBeVisible();
-    await topBannerPage.userLink.click();
-    await expect(topBannerPage.userPopup).toContainText('dandy@codedandy.com');
-    await topBannerPage.userProfileLink.click();
-    await expect(page.getByRole('heading', { name: 'User Details' })).toBeVisible();
+    await test.step('navigate to profile page', async () => {
+        await topBannerPage.userLink.click();
+        await expect(topBannerPage.userPopup).toContainText('dandy@codedandy.com');
+        await topBannerPage.userProfileLink.click();
+        await expect(page.getByRole('heading', { name: 'User Details' })).toBeVisible();
+    });
 
-    await topBannerPage.userLink.click();
-    await topBannerPage.userOrdersLink.click();
-    await expect(page.getByRole('heading', { name: 'My Orders' })).toBeVisible();
+    await test.step('navigate to orders page', async () => {
+        await topBannerPage.userLink.click();
+        await topBannerPage.userOrdersLink.click();
+        await expect(page.getByRole('heading', { name: 'My Orders' })).toBeVisible();
+    });
 
-    await topBannerPage.userLink.click();
-    await topBannerPage.userLogoutButton.click();
-    await expect(topBannerPage.loginLink).toBeVisible();
-
+    await test.step('logout', async () => {
+        await topBannerPage.userLink.click();
+        await topBannerPage.userLogoutButton.click();
+        await expect(topBannerPage.loginLink).toBeVisible();
+    });
 
 })
