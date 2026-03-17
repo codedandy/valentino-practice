@@ -30,7 +30,8 @@ export class TopBannerPage {
         this.userProfileLink = this.userPopup.locator('div').locator('div').filter({ hasText: 'Profile' });
         this.userOrdersLink = this.userPopup.locator('div').locator('div').filter({ hasText: 'My Orders' });
         this.userLogoutButton = this.userPopup.locator('div').locator('div').filter({ hasText: 'Log out' });
-        this.userWelcomeMessage = page.getByText('Login Successful');
+        // this.userWelcomeMessage = page.getByText('Login Successful');
+        this.userWelcomeMessage = page.locator('div').getByText('Login Successful');
 
     }
 
