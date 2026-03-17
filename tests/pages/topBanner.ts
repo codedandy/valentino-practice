@@ -10,6 +10,11 @@ export class TopBannerPage {
     readonly signUpLink: Locator;
     readonly cartButton: Locator;
     readonly userLink: Locator;
+    readonly userPopup: Locator;
+    readonly userProfileLink: Locator;
+    readonly userOrdersLink: Locator;
+    readonly userLogoutButton: Locator;
+    readonly userWelcomeMessage: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -21,6 +26,12 @@ export class TopBannerPage {
         this.signUpLink = page.getByRole('link', { name: 'Sign Up' });
         this.cartButton = page.locator('[data-test-id="header-cart-button"]').getByRole('button');
         this.userLink = page.locator('[data-test-id="header-cart-button"]').locator('..').locator('div').first();
+        this.userPopup = page.locator('[data-radix-popper-content-wrapper]');
+        this.userProfileLink = this.userPopup.locator('div').locator('div').filter({ hasText: 'Profile' });
+        this.userOrdersLink = this.userPopup.locator('div').locator('div').filter({ hasText: 'My Orders' });
+        this.userLogoutButton = this.userPopup.locator('div').locator('div').filter({ hasText: 'Log out' });
+        this.userWelcomeMessage = page.getByText('Login Successful');
+
     }
 
     async clickLogo() {

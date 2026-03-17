@@ -1,24 +1,33 @@
 import { test, expect } from './fixtures/fixtures';
+import * as loginData from '../playwright/.auth/login.json'
 
-test('login with valid user', async ({ page, topBannerPage, loginPage }) => {
+test.beforeEach(async ({ page }) => {
     await page.goto('');
+});
+
+test('login with valid user - run through user menu', async ({ page, topBannerPage, loginPage }) => {
 
     await topBannerPage.clickLogin();
 
-    await loginPage.login('dandy@codedandy.com', 'Dandy12345');
+    // await loginPage.login('dandy@codedandy.com', 'Dandy12345');
+    await loginPage.login(loginData.valid_user, loginData.valid_password);
 
     await page.waitForLoadState('networkidle');
+    const kotter = page.getByText('Login Successful');
 
-    const experimentalButton = page.locator('[data-test-id="header-cart-button"]').locator('..').locator('div').first();
-    const popup = page.getByText('Welcome!').locator('..').locator('..').locator('..');
-    const welcome = page.locator('[data-radix-popper-content-wrapper]');
-    // the following does not appear to work in the test window but does execute correctly
-    const welcomePanel = welcome.locator('div').locator('div').filter({ hasText: 'Profile' });
+    await expect(kotter).toBeVisible();
+    await topBannerPage.userLink.click();
+    await expect(topBannerPage.userPopup).toContainText('dandy@codedandy.com');
+    await topBannerPage.userProfileLink.click();
+    await expect(page.getByRole('heading', { name: 'User Details' })).toBeVisible();
 
-    // const badButtonName = page.locator('div').filter({ hasText: /^Toggle navigation menu$/ }).locator('div').getByRole('button');
+    await topBannerPage.userLink.click();
+    await topBannerPage.userOrdersLink.click();
+    await expect(page.getByRole('heading', { name: 'My Orders' })).toBeVisible();
 
-    await expect(experimentalButton).toBeVisible();
-    await experimentalButton.click();
-    await expect(popup).toContainText('dandy@codedandy.com');
-    await welcomePanel.click();
+    await topBannerPage.userLink.click();
+    await topBannerPage.userLogoutButton.click();
+    await expect(topBannerPage.loginLink).toBeVisible();
+
+
 })
