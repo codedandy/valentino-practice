@@ -38,19 +38,19 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-    {
-      name: 'setup',
-      testMatch: /.*\.setup\.ts/,
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'pre-authenticated-chromium',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: './playwright/.auth/user.json'
-      },
-      dependencies: ['setup'],
-    },
+    // {
+    //   name: 'setup',
+    //   testMatch: /.*\.setup\.ts/,
+    //   use: { ...devices['Desktop Chrome'] },
+    // },
+    // {
+    //   name: 'pre-authenticated-chromium',
+    //   use: {
+    //     ...devices['Desktop Chrome'],
+    //     storageState: './playwright/.auth/user.json'
+    //   },
+    //   dependencies: ['setup'],
+    // },
 
     // {
     //   name: 'firefox',
