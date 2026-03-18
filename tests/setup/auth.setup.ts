@@ -5,11 +5,11 @@ import { test, expect } from '../fixtures/fixtures';
 const authSesssionFile = path.resolve(__dirname, '../../playwright/.auth/user.json');
 
 // read and parse login.json file
-const loginDataFile = path.resolve(__dirname, '../../playwright/.auth/login.json');
-const loginData = JSON.parse(fs.readFileSync(loginDataFile, 'utf-8')) as {
-    valid_user: string;
-    valid_password: string;
-};
+// const loginDataFile = path.resolve(__dirname, '../../playwright/.auth/login.json');
+// const loginData = JSON.parse(fs.readFileSync(loginDataFile, 'utf-8')) as {
+//     valid_user: string;
+//     valid_password: string;
+// };
 
 // test('User Login', async ({ page }) => {
 //     console.log('User:', loginData.valid_user);
